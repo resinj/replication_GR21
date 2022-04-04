@@ -443,7 +443,12 @@ threshreldiag = function(fcast,y,t,resampling = TRUE,n_resamples = 1000,region_l
     rank_obs = tail(rank(c(mcb_resamples,mcb)),1)
     pval = 1 - (rank_obs - 1)/(n_resamples + 1)
   }
-
+  
+  # The Score is exactly equal to MCB - DSC + UNC.
+  # However, when rounding the values there may be slight discrepancies between the rounded values.
+  # Avoid this for didactic reasons by computing the score from the rounded values.
+  s = sum(round(c(mcb,-dsc,unc),digits))
+  
   text(x = 0,y = 1,paste0(c("BS ","MCB ","DSC ","UNC "),collapse = "\n"),adj = c(0,1))
   text(x = 0.2,y = 1,paste0(bquote(.(format(round(c(s,mcb,dsc,unc),digits = digits)),nsmall = digits)),collapse = "\n"),adj = c(0,1))
       
@@ -466,7 +471,7 @@ threshreldiag = function(fcast,y,t,resampling = TRUE,n_resamples = 1000,region_l
 reldiag = function(x,y,
                    type = "mean",      # for quantiles set type = list("quantile",alpha = 0.1) (replace 0.1 with appropriate level)
                    resampling = TRUE,n_resamples = 1000,replace = TRUE,region_level = 0.9,
-                   digits = 3,inset_hist = TRUE,hist.breaks = 8,scatter_plot = TRUE,
+                   digits = 3,inset_hist = TRUE,hist.breaks = 8,scatter_plot = TRUE,ext_decomp = TRUE,
                    lim = NULL,         # plotting region (used for xlim and ylim), e.g. lim = c(0,1)
                    main = "",xlab = NULL,ylab = NULL,adj_xlab = NA){
   if(type[[1]] == "mean"){
@@ -484,9 +489,14 @@ reldiag = function(x,y,
       pava = function(x,y){
         # In case of ties, isotone::gpava uses the conditional mean instead of quantile, try e.g.,
         # gpava(c(-1,-1,-1),c(-1,0,0),solver = weighted.median,ties = "secondary")
-        # the following step replaces y values with the respective quantile in case of ties
-        y = unlist(lapply(split(y,x),function(y) rep(quantile(y,alpha,type = 1),length(y))),use.names = FALSE)
-        return(gpava(x,y,solver = weighted.fractile,p = alpha,ties = "secondary")$x)
+        
+        # Wrong fix: The following step replaces y values with the respective quantile in case of ties
+        # y = unlist(lapply(split(y,x),function(y) rep(quantile(y,alpha,type = 1),length(y))),use.names = FALSE)
+        
+        # New fix: Use ranking of predictor values and break ties by ordering the corresponding instances in order of decreasing observations
+        ranking = match(1:length(x),order(x,y,decreasing = c(FALSE,TRUE)))
+        
+        return(gpava(ranking,y,solver = weighted.fractile,p = alpha,ties = "secondary")$x)
       }
       score = function(x,y) mean(2*(as.numeric(x >= y) - alpha)*(x-y))
       marg = function(x) quantile(x,alpha,type = 1)
@@ -512,17 +522,18 @@ reldiag = function(x,y,
   
   x_rc = pava(x,y)
   
-  # We encountered suboptimal solutions for quantiles in rare cases, e.g.,
-  # gpava(c(3,3,2,1,1),1:5,solver = weighted.fractile,p = 0.75, ties = "secondary")
-  # which led to slightly negative DSC components
-  # applying gpava a second time seems to fix this:
-  if(type[[1]] == "quantile"){
-    x_rc2 = pava(x_rc,y)
-    if(!all(x_rc == x_rc2)){
-      warning("Encountered multiple gpava solutions...")
-      x_rc = x_rc2
-    }
-  }
+  # Irrelevant with new fix in pava:
+  # # We encountered suboptimal solutions for quantiles in rare cases, e.g.,
+  # # gpava(c(3,3,2,1,1),1:5,solver = weighted.fractile,p = 0.75, ties = "secondary")
+  # # which led to slightly negative DSC components
+  # # applying gpava a second time seems to fix this:
+  # if(type[[1]] == "quantile"){
+  #   x_rc2 = pava(x_rc,y)
+  #   if(!all(x_rc == x_rc2)){
+  #     warning("Encountered multiple gpava solutions...")
+  #     x_rc = x_rc2
+  #   }
+  # }
   
   res = y - x
   
@@ -566,10 +577,28 @@ reldiag = function(x,y,
     rank_obs = tail(rank(c(mcb_resamples,mcb)),1)
     pval = 1 - (rank_obs - 1)/(n_resamples + 1)
   }
-  text_pos = legend("topleft",legend = parse(text = c(score_label,expression(MCB[u]),expression(MCB[c]),"DSC","UNC")),plot = FALSE)
-  text(x = lim[1],y = text_pos$text$y,parse(text = c(score_label,expression(MCB[u]),expression(MCB[c]),"DSC","UNC")),adj = c(0,0.5))
+  
+  if(ext_decomp){
+    mcb_label = c(expression(MCB[u]),expression(MCB[c]))
+    mcb_comp = c(umcb,cmcb)
+    # The Score is exactly equal to uMCB + cMCB - DSC + UNC.
+    # However, when rounding the values there may be slight discrepancies between the rounded values.
+    # We avoid this for didactic reasons by computing the score from the rounded values.
+    s = sum(round(c(mcb_comp,-dsc,unc),digits))
+  }
+  else{
+    mcb_label = "MCB"
+    mcb_comp = mcb
+    # The Score is exactly equal to MCB - DSC + UNC.
+    # However, when rounding the values there may be slight discrepancies between the rounded values.
+    # We avoid this for didactic reasons by computing the score from the rounded values.
+    s = sum(round(c(mcb_comp,-dsc,unc),digits))
+  }
+  
+  text_pos = legend("topleft",legend = parse(text = c(score_label,mcb_label,"DSC","UNC")),plot = FALSE)
+  text(x = lim[1],y = text_pos$text$y,parse(text = c(score_label,mcb_label,"DSC","UNC")),adj = c(0,0.5))
   text(x = 0.8*lim[1] + 0.2*lim[2],y = text_pos$text$y,
-       bquote(.(format(round(c(s,umcb,cmcb,dsc,unc),digits = digits)),nsmall = digits)),
+       bquote(.(format(round(c(s,mcb_comp,dsc,unc),digits = digits)),nsmall = digits)),
        adj = c(0,0.5))
 
   abline(a = 0,b = 1,col = "grey",lty = 2)

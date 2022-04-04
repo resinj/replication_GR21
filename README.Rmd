@@ -3,7 +3,7 @@ title: "Replication code for Gneiting and Resin (2021)"
 output: github_document
 ---
 
-### This repository provides replication code for the article "Regression Diagnostics meets Forecast Evaluation: Conditional Calibration, Reliability Diagrams, and Coefficient of Determination" by Tilmann Gneiting and Johannes Resin ([arXiv:2108.03210](https://arxiv.org/abs/2108.03210)).
+### This repository provides replication code for the article "Regression Diagnostics meets Forecast Evaluation: Conditional Calibration, Reliability Diagrams, and Coefficient of Determination" by Tilmann Gneiting and Johannes Resin ([arXiv:2108.03210](https://arxiv.org/abs/2108.03210v2)).
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -50,62 +50,62 @@ A new folder 'figs' is created in the working directory and all figures are save
 ## Figure 2
 
 <p align="middle">
-  <img src="figs/fig2.png" width="525" />
+  <img src="figs/fig2a.png" width="400" />
+  <img src="figs/fig2b.png" width="400" />
 </p>
 
 ## Figure 3
 
 <p align="middle">
-  <img src="figs/fig3a.png" width="315" />
-  <img src="figs/fig3b.png" width="270" /> 
-  <img src="figs/fig3c.png" width="270" />
-</p>
-<p align="middle">
-  <img src="figs/fig3d.png" width="315" />
-  <img src="figs/fig3e.png" width="270" /> 
-  <img src="figs/fig3f.png" width="270" />
-</p>
-<p align="middle">
-  <img src="figs/fig3g.png" width="315" />
-  <img src="figs/fig3h.png" width="270" /> 
-  <img src="figs/fig3i.png" width="270" />
+  <img src="figs/fig3.png" width="525" />
 </p>
 
 ## Figure 4
 
 <p align="middle">
-  <img src="figs/fig4.png" width="525" />
+  <img src="figs/fig4a.png" width="315" />
+  <img src="figs/fig4b.png" width="270" /> 
+  <img src="figs/fig4c.png" width="270" />
+</p>
+<p align="middle">
+  <img src="figs/fig4d.png" width="315" />
+  <img src="figs/fig4e.png" width="270" /> 
+  <img src="figs/fig4f.png" width="270" />
+</p>
+<p align="middle">
+  <img src="figs/fig4g.png" width="315" />
+  <img src="figs/fig4h.png" width="270" /> 
+  <img src="figs/fig4i.png" width="270" />
 </p>
 
 ## Figure 5
 
 <p align="middle">
-  <img src="figs/fig5a.png" width="315" />
-  <img src="figs/fig5b.png" width="270" /> 
-  <img src="figs/fig5c.png" width="270" />
-</p>
-<p align="middle">
-  <img src="figs/fig5d.png" width="315" />
-  <img src="figs/fig5e.png" width="270" /> 
-  <img src="figs/fig5f.png" width="270" />
-</p>
-<p align="middle">
-  <img src="figs/fig5g.png" width="315" />
-  <img src="figs/fig5h.png" width="270" /> 
-  <img src="figs/fig5i.png" width="270" />
+  <img src="figs/fig5.png" width="525" />
 </p>
 
 ## Figure 6
 
 <p align="middle">
-  <img src="figs/fig6.png" width="500" />
+  <img src="figs/fig6a.png" width="315" />
+  <img src="figs/fig6b.png" width="270" /> 
+  <img src="figs/fig6c.png" width="270" />
+</p>
+<p align="middle">
+  <img src="figs/fig6d.png" width="315" />
+  <img src="figs/fig6e.png" width="270" /> 
+  <img src="figs/fig6f.png" width="270" />
+</p>
+<p align="middle">
+  <img src="figs/fig6g.png" width="315" />
+  <img src="figs/fig6h.png" width="270" /> 
+  <img src="figs/fig6i.png" width="270" />
 </p>
 
 ## Figure 7
 
 <p align="middle">
-  <img src="figs/fig7a.png" width="400" />
-  <img src="figs/fig7b.png" width="400" />
+  <img src="figs/fig7.png" width="500" />
 </p>
 
 ## Figure 8

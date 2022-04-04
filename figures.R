@@ -16,8 +16,8 @@ cex_def = 0.67
 figs_path = "./figs/"
 if(!dir.exists(figs_path)) dir.create(figs_path)
 
-# Figure 2
-plot_fig2 = function(file,width = 5.25,height = 2.7){
+# Figure 3
+plot_fig3 = function(file,width = 5.25,height = 2.7){
   cdf_vals = matrix(c(0,0,5,10,12,20,20,
                       0,0,5,10,18,20,20,
                       0,0,8,10,12,20,20,
@@ -32,10 +32,10 @@ plot_fig2 = function(file,width = 5.25,height = 2.7){
   dev.off()
 }
 
-plot_fig2("fig2.png")
+plot_fig3("fig3.png")
 
-# Figure 3
-plot_fig3 = function(plot_fct,fcast_fct,param,file,width,height,
+# Figure 4
+plot_fig4 = function(plot_fct,fcast_fct,param,file,width,height,
                      mai = mai_def,main = "",main2 = "", ...){
   colors = c(brewer.pal(n = 8,name = "YlOrRd")[5:8],
              "black",
@@ -48,35 +48,34 @@ plot_fig3 = function(plot_fct,fcast_fct,param,file,width,height,
   dev.off()
 }
 
-plot_fig3(plot_thresh,cond_nep_unf,-2:2,"fig3a.png",width = 3.15,height = 3.15,
+plot_fig4(plot_thresh,cond_nep_unf,-2:2,"fig4a.png",width = 3.15,height = 3.15,
           mai = mai_def + c(0,0.45,0.45,0),main = "Unfocused",main2 = "Threshold")
-plot_fig3(plot_thresh,cond_nep_lop,-2:2,"fig3b.png",width = 2.7,height = 3.15,
+plot_fig4(plot_thresh,cond_nep_lop,-2:2,"fig4b.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Lopsided",main2 = "")
-plot_fig3(plot_thresh,cond_nep_pwUnif,seq(0,3,0.75),"fig3c.png",width = 2.7,height = 3.15,
+plot_fig4(plot_thresh,cond_nep_pwUnif,seq(0,3,0.75),"fig4c.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Piecewise Uniform",main2 = "")
-plot_fig3(plot_quant,cond_quant_unf,seq(0.1,0.9,0.1),"fig3d.png",width = 3.15,height = 2.7,
+plot_fig4(plot_quant,cond_quant_unf,seq(0.1,0.9,0.1),"fig4d.png",width = 3.15,height = 2.7,
           mai = mai_def + c(0,0.45,0,0),main = "",main2 = "Quantile")
-plot_fig3(plot_quant,cond_quant_lop,seq(0.1,0.9,0.1),"fig3e.png",width = 2.7,height = 2.7)
-plot_fig3(plot_quant,cond_quant_pwUnif,seq(0.1,0.9,0.1),"fig3f.png",width = 2.7,height = 2.7,lim = c(-1,4))
-plot_fig3(plot_moms,cond_moms_unf,NULL,"fig3g.png",width = 3.15,height = 2.7,
+plot_fig4(plot_quant,cond_quant_lop,seq(0.1,0.9,0.1),"fig4e.png",width = 2.7,height = 2.7)
+plot_fig4(plot_quant,cond_quant_pwUnif,seq(0.1,0.9,0.1),"fig4f.png",width = 2.7,height = 2.7,lim = c(-1,4))
+plot_fig4(plot_moms,cond_moms_unf,NULL,"fig4g.png",width = 3.15,height = 2.7,
           mai = mai_def + c(0,0.45,0,0),main = "",main2 = "Moment")
-plot_fig3(plot_moms,cond_moms_lop,NULL,"fig3h.png",width = 2.7,height = 2.7,mai = mai_def)
-plot_fig3(plot_moms,cond_moms_pwUnif,NULL,"fig3i.png",width = 2.7,height = 2.7,
+plot_fig4(plot_moms,cond_moms_lop,NULL,"fig4h.png",width = 2.7,height = 2.7,mai = mai_def)
+plot_fig4(plot_moms,cond_moms_pwUnif,NULL,"fig4i.png",width = 2.7,height = 2.7,
           mai = mai_def,lim = c(-2,5))
 
 # Figure S1
-# uses plot_fig3 from Figure 3
-plot_fig3(plot_moms,cond_moms_unf,NULL,"figS1a.png",width = 3.15,height = 3.15,
+# uses plot_fig4 from Figure 4
+plot_fig4(plot_moms,cond_moms_unf,NULL,"figS1a.png",width = 3.15,height = 3.15,
           mai = mai_def + c(0,0.45,0.45,0),main = "Unfocused",main2 = "Moment", lim = c(-64,64),root_transform = FALSE)
-plot_fig3(plot_moms,cond_moms_lop,NULL,"figS1b.png",width = 2.7,height = 3.15,
+plot_fig4(plot_moms,cond_moms_lop,NULL,"figS1b.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Lopsided", lim = c(-64,64),root_transform = FALSE)
-plot_fig3(plot_moms,cond_moms_pwUnif,NULL,"figS1c.png",width = 2.7,height = 3.15,
+plot_fig4(plot_moms,cond_moms_pwUnif,NULL,"figS1c.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Piecewise Uniform", lim = c(-2,2),root_transform = FALSE)
 
-
-# Figure 4
+# Figure 5
 # Expected score of unfocused mean
-plot_fig4 = function(file,width = 5.25,height = 2.7){
+plot_fig5 = function(file,width = 5.25,height = 2.7){
   Psi = function(x,c = 1) dnorm(x + c)/(dnorm(x) + dnorm(x + c))
   I = function(c) integrate(function(x) Psi(x,c)^2*dnorm(x),lower = -20,upper = 20)$value
   mcb = function(c) c^2*(0.25 - I(c))
@@ -102,11 +101,10 @@ plot_fig4 = function(file,width = 5.25,height = 2.7){
   dev.off()
 }
 
-plot_fig4("fig4.png")
+plot_fig5("fig5.png")
 
-
-# Figure 5
-plot_fig5 = function(plot_reldiag,fcast,y,file,width,height,
+# Figure 6
+plot_fig6 = function(plot_reldiag,fcast,y,file,width,height,
                      mai = mai_def,main = "",main2 = "",...){
   png(file = paste0(figs_path,file),width = width,height = height,units = "in",res = 300)
   par(pty = "s",mai = mai,mgp = mgp_def,lwd = lwd_def,cex = cex_def,cex.main = cex.main_def)
@@ -118,40 +116,40 @@ plot_fig5 = function(plot_reldiag,fcast,y,file,width,height,
 
 sim = setup_normal(400,1.5,0.7)
 
-plot_fig5(threshreldiag,sim$perf,sim$y,"fig5a.png",width = 3.15,height = 3.15,
+plot_fig6(threshreldiag,sim$perf,sim$y,"fig6a.png",width = 3.15,height = 3.15,
           mai = mai_def + c(0,0.45,0.45,0),main = "Perfect",main2 = "Threshold",t = 1)
-plot_fig5(threshreldiag,sim$unf,sim$y,"fig5b.png",width = 2.7,height = 3.15,
+plot_fig6(threshreldiag,sim$unf,sim$y,"fig6b.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Unfocused",main2 = "",t = 1)
-plot_fig5(threshreldiag,sim$lop,sim$y,"fig5c.png",width = 2.7,height = 3.15,
+plot_fig6(threshreldiag,sim$lop,sim$y,"fig6c.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Lopsided",main2 = "",t = 1)
 
 lim_mean = c(-4.5,4.5)
-plot_fig5(reldiag,sim$perf$m[,1],sim$y,"fig5d.png",width = 3.15,height = 2.7,
+plot_fig6(reldiag,sim$perf$m[,1],sim$y,"fig6d.png",width = 3.15,height = 2.7,
           mai = mai_def + c(0,0.45,0,0),main = "",main2 = "Mean",type = "mean",scatter_plot = TRUE,inset_hist = FALSE, lim = lim_mean)
-plot_fig5(reldiag,sim$unf$m[,1],sim$y,"fig5e.png",width = 2.7,height = 2.7,
+plot_fig6(reldiag,sim$unf$m[,1],sim$y,"fig6e.png",width = 2.7,height = 2.7,
           mai = mai_def,main = "",main2 = "",type = "mean",scatter_plot = TRUE,inset_hist = FALSE, lim = lim_mean)
-plot_fig5(reldiag,sim$lop$m[,1],sim$y,"fig5f.png",width = 2.7,height = 2.7,
+plot_fig6(reldiag,sim$lop$m[,1],sim$y,"fig6f.png",width = 2.7,height = 2.7,
           mai = mai_def,main = "",main2 = "",type = "mean",scatter_plot = TRUE,inset_hist = FALSE, lim = lim_mean)
 
 lim_quant = c(-6,4)
-plot_fig5(reldiag,sim$perf$quant(0.1),sim$y,"fig5g.png",width = 3.15,height = 2.7,
+plot_fig6(reldiag,sim$perf$quant(0.1),sim$y,"fig6g.png",width = 3.15,height = 2.7,
           mai = mai_def + c(0,0.45,0,0),main = "",main2 = "Quantile",type = list("quantile",alpha = 0.1),scatter_plot = FALSE, lim = lim_quant)
-plot_fig5(reldiag,sim$unf$quant(0.1),sim$y,"fig5h.png",width = 2.7,height = 2.7,
+plot_fig6(reldiag,sim$unf$quant(0.1),sim$y,"fig6h.png",width = 2.7,height = 2.7,
           mai = mai_def,main = "",main2 = "",type = list("quantile",alpha = 0.1),scatter_plot = FALSE, lim = lim_quant)
-plot_fig5(reldiag,sim$lop$quant(0.1),sim$y,"fig5i.png",width = 2.7,height = 2.7,
+plot_fig6(reldiag,sim$lop$quant(0.1),sim$y,"fig6i.png",width = 2.7,height = 2.7,
           mai = mai_def,main = "",main2 = "",type = list("quantile",alpha = 0.1),scatter_plot = FALSE, lim = lim_quant)
 
-# Figure 7
-# uses plot_fig5 from Figure 5!
-plot_fig5(reldiag,obs_pred$pred_null,obs_pred$obs,"fig7a.png",width = 4,height = 4.45,
+# Figure 2
+# uses plot_fig6 from Figure 6!
+plot_fig6(reldiag,obs_pred$pred_null,obs_pred$obs,"fig2a.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Null Model",main2 = "",
-          type = "mean",lim = c(-0.35,3),scatter_plot = TRUE,inset_hist = FALSE,adj_xlab = 0.9,)
-plot_fig5(reldiag,obs_pred$pred_opt,obs_pred$obs,"fig7b.png",width = 4,height = 4.45,
+          type = "mean",lim = c(-0.35,3),scatter_plot = TRUE,inset_hist = FALSE,ext_decomp = FALSE,adj_xlab = 0.9,)
+plot_fig6(reldiag,obs_pred$pred_opt,obs_pred$obs,"fig2b.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Ridge Regression",main2 = "",
-          type = "mean",lim = c(-0.35,3),scatter_plot = TRUE,inset_hist = FALSE,adj_xlab = 0.9)
+          type = "mean",lim = c(-0.35,3),scatter_plot = TRUE,inset_hist = FALSE,ext_decomp = FALSE,adj_xlab = 0.9)
 
 # Figure 8 and S3 - S8
-# uses plot_fig5 for reliability diagrams and plot_fig8 for ACFs
+# uses plot_fig6 for reliability diagrams and plot_fig8 for ACFs
 plot_fig8 = function(z,file,width,height,mai = mai_def,main = "",main2 = "",...){
   png(file = paste0(figs_path,file),width = width,height = height,units = "in",res = 200)
   par(pty = "s",mai = mai,mgp = mgp_def,lwd = lwd_def,cex = cex_def,cex.main = cex.main_def)
@@ -172,38 +170,37 @@ for(lag in 0:6){
   z = data_eval$fcast$F(data_eval$y)
   z2 = (z - 0.5)^2
   
-  plot_fig5(PITreldiag,data_eval$fcast,data_eval$y,paste0("fig",fig_labels[lag+1],"a.png"),width = 2.7,height = 3.15,
+  plot_fig6(PITreldiag,data_eval$fcast,data_eval$y,paste0("fig",fig_labels[lag+1],"a.png"),width = 2.7,height = 3.15,
             mai = mai_def + c(0,0,0.45,0),main = "(a) PIT",main2 = "")
   plot_fig8(z,paste0("fig",fig_labels[lag+1],"b.png"),width = 2.7,height = 3.15,
                 mai = mai_def + c(0,0,0.45,0),main = "(b) ACF of PIT",main2 = "",ci = 0.9,ylab = "")
   plot_fig8(z2,paste0("fig",fig_labels[lag+1],"c.png"),width = 2.7,height = 3.15,
                 mai = mai_def + c(0,0,0.45,0),main = expression(bold("(c) ACF of" ~ group("(",PIT - 1/2,")")^2)),main2 = "",ci = 0.9,ylab = "")
-  plot_fig5(margreldiag,data_eval$fcast,data_eval$y,paste0("fig",fig_labels[lag+1],"d.png"),width = 2.7,height = 3.15,
+  plot_fig6(margreldiag,data_eval$fcast,data_eval$y,paste0("fig",fig_labels[lag+1],"d.png"),width = 2.7,height = 3.15,
             mai = mai_def + c(0,0,0.45,0),main = "(d) Marginal",main2 = "")
-  plot_fig5(threshreldiag,data_eval$fcast,data_eval$y,paste0("fig",fig_labels[lag+1],"e.png"),width = 2.7,height = 3.15,
+  plot_fig6(threshreldiag,data_eval$fcast,data_eval$y,paste0("fig",fig_labels[lag+1],"e.png"),width = 2.7,height = 3.15,
             mai = mai_def + c(0,0,0.45,0),main = "(e) Threshold",main2 = "",t = 2)
-  plot_fig5(reldiag,data_eval$fcast$quant(0.75),data_eval$y,paste0("fig",fig_labels[lag+1],"f.png"),width = 2.7,height = 3.15,
+  plot_fig6(reldiag,data_eval$fcast$quant(0.75),data_eval$y,paste0("fig",fig_labels[lag+1],"f.png"),width = 2.7,height = 3.15,
             mai = mai_def + c(0,0,0.45,0),main = "(f) Quantile",main2 = "",type = list("quantile",0.75),scatter_plot = FALSE,lim = lim_quant)
 }
 
 # Figure S2
-# uses plot_fig5 from Figure 5!
-plot_fig5(PITreldiag,sim$perf,sim$y,"figS2a.png",width = 3.15,height = 3.15,
+# uses plot_fig6 from Figure 6!
+plot_fig6(PITreldiag,sim$perf,sim$y,"figS2a.png",width = 3.15,height = 3.15,
           mai = mai_def + c(0,0.45,0.45,0),main = "Perfect",main2 = "PIT")
-plot_fig5(PITreldiag,sim$unf,sim$y,"figS2b.png",width = 2.7,height = 3.15,
+plot_fig6(PITreldiag,sim$unf,sim$y,"figS2b.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Unfocused",main2 = "")
-plot_fig5(PITreldiag,sim$lop,sim$y,"figS2c.png",width = 2.7,height = 3.15,
+plot_fig6(PITreldiag,sim$lop,sim$y,"figS2c.png",width = 2.7,height = 3.15,
           mai = mai_def + c(0,0,0.45,0),main = "Lopsided",main2 = "")
-plot_fig5(margreldiag,sim$perf,sim$y,"figS2d.png",width = 3.15,height = 2.7,
+plot_fig6(margreldiag,sim$perf,sim$y,"figS2d.png",width = 3.15,height = 2.7,
           mai = mai_def + c(0,0.45,0,0),main = "",main2 = "Marginal")
-plot_fig5(margreldiag,sim$unf,sim$y,"figS2e.png",width = 2.7,height = 2.7,
+plot_fig6(margreldiag,sim$unf,sim$y,"figS2e.png",width = 2.7,height = 2.7,
           mai = mai_def,main = "",main2 = "")
-plot_fig5(margreldiag,sim$lop,sim$y,"figS2f.png",width = 2.7,height = 2.7,
+plot_fig6(margreldiag,sim$lop,sim$y,"figS2f.png",width = 2.7,height = 2.7,
           mai = mai_def,main = "",main2 = "Marginal")
 
-
-# Figure 6
-plot_fig6 = function(file,width = 5,height = 2.7){
+# Figure 7
+plot_fig7 = function(file,width = 5,height = 2.7){
   x = c(1,2,4,6,8,10,11,12,14)
   y = c(4,5,6,9,10,11,13,8,15)
   
@@ -274,7 +271,7 @@ plot_fig6 = function(file,width = 5,height = 2.7){
  dev.off()
 }
 
-plot_fig6("fig6.png")
+plot_fig7("fig7.png")
 
 # Figure 9
 plot_fig9 = function(mdu,label_score = "MSE",file,width,height,
@@ -333,5 +330,3 @@ plot_fig9(decomp_thresh,"BS","fig9a.png",width = 4,height = 3.45,
           mai = mai_def + c(0,0,0.45,0),mgp = c(-1.2,0.8,0),main = "Threshold")
 plot_fig9(decomp_quant,"QS","fig9b.png",width = 4,height = 3.45,
           mai = mai_def + c(0,0,0.45,0),mgp = c(-1.2,0.8,0),main = "Quantile",show_MCBu = TRUE)
-
-
